@@ -44,23 +44,23 @@ This tool was designed for robustness and portability, avoiding the pitfalls of 
 ### Core Stripping Engine
 The core logic is a dependency-free state machine that parses code character by character. It explicitly tracks its state to differentiate between being inside a multi-line comment, a single-line comment, a string literal ("..."), or a character literal ('...'). This approach correctly handles complex edge cases, such as comment-like syntax appearing within a string, which often cause naive regex strippers to fail.
 
-### Language Extensibility
-Language support is not hardcoded. A central LANGUAGE_STYLE_MAP dictionary categorizes file extensions into one of three primary comment "styles":
+## Language Support and Extensibility
+This tool supports a wide variety of programming languages by categorizing their comment syntax. The internal engine is highly extensible—to add a new language, you simply need to add its file extension to the appropriate category within the LANGUAGE_STYLE_MAP dictionary in the source code.
 
-C-Style ('c'): Supports // for single-line and /* ... */ for block comments.
+The table below details the currently supported languages and their comment styles.
 
-Python-Style ('python'): Supports # for single-line comments.
-
-HTML-Style ('html'): Supports <!-- ... --> for block comments.
-
-
-## Supported Languages
-The tool currently supports the following comment styles and associated file extensions:
-
-C-Style: .c, .h, .cpp, .hpp, .cc, .java, .js, .mjs, .jsx, .ts, .tsx, .go, .rs, .css
-
-Python-Style: .py, .pyw, .rb, .sh
-
-HTML-Style: .html, .htm, .xml
-
+| Language     | File Extensions         | Comment Style                          |
+| ------------ | ----------------------- | -------------------------------------- |
+| C / C++      | .c, .h, .cpp, .hpp, .cc | // (single-line) and /* ... */ (block) |
+| Java         | .java                   | // (single-line) and /* ... */ (block) |
+| JavaScript   | .js, .mjs, .jsx         | // (single-line) and /* ... */ (block) |
+| TypeScript   | .ts, .tsx               | // (single-line) and /* ... */ (block) |
+| Go           | .go                     | // (single-line) and /* ... */ (block) |
+| Rust         | .rs                     | // (single-line) and /* ... */ (block) |
+| CSS          | .css                    | /* ... */ (block only)                 |
+| Python       | .py, .pyw               | # (single-line)                        |
+| Ruby         | .rb                     | # (single-line)                        |
+| Shell Script | .sh                     | # (single-line)                        |
+| HTML         | .html, .htm             | <!-- ... --> (block)                   |
+| XML          | .xml                    | <!-- ... --> (block)                   |
 
